@@ -10,9 +10,9 @@ class HomeScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ButtonStyle style =
+    final style =
         ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
-    TextEditingController controller = ref.read(textEditingControllerProvider);
+    final controller = ref.read(textEditingControllerProvider);
     final error = useState(false);
     final loading = useState(false);
 
@@ -80,7 +80,7 @@ class ProScreen extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final ButtonStyle style =
+    final style =
         ElevatedButton.styleFrom(textStyle: const TextStyle(fontSize: 20));
     final tasksService = ref.watch(tasksServiceProvider);
     final persent = tasksService.persent;
@@ -173,7 +173,6 @@ class ResultListScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Result list screen'),
-        //automaticallyImplyLeading: false,
       ),
       body: ListView.builder(
         itemCount: results.length,
