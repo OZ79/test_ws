@@ -9,8 +9,7 @@ import '../util/shortest_path.dart';
 
 final textEditingControllerProvider = Provider<TextEditingController>(
   (ref) {
-    return TextEditingController(
-        text: 'https://flutter.webspark.dev/flutter/api');
+    return TextEditingController();
   },
 );
 
