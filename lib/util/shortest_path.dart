@@ -133,3 +133,8 @@ List<Cell>? buidShortestPath(List<List<int>> mat, int i, int j, int x, int y) {
   if (matDist == null) return null;
   return _getShortestPath(matDist, i, j, x, y);
 }
+
+List<Cell>? buidShortestPathCompute(List<dynamic> params) {
+  return buidShortestPath(
+      params[0], params[1], params[2], params[3], params[4]);
+}

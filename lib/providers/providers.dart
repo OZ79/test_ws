@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:test_ws/data/model.dart';
@@ -40,8 +41,9 @@ final resultProvider = FutureProvider.family<Result, int>(
     final j = task.start['x'];
     final x = task.end['y'];
     final y = task.end['x'];
-    List<Cell>? path =
-        buidShortestPath(listStrToMatrix(task.field), i, j, x, y);
+    //List<Cell>? path = buidShortestPath(listStrToMatrix(task.field), i, j, x, y);
+    final path = await compute(
+        buidShortestPathCompute, [listStrToMatrix(task.field), i, j, x, y]);
     if (path == null) return Result(id: task.id, path: [], pathStr: '---');
     return Result(id: task.id, path: path, pathStr: listCellToPathStr(path));
   },
@@ -65,7 +67,6 @@ class TasksService extends ChangeNotifier {
     for (int n = 0; n < tasks!.length; n++) {
       final result = await ref.read(resultProvider(n).future);
       results.add(result);
-      await Future.delayed(const Duration(milliseconds: 200));
       calculated++;
       notifyListeners();
     }
