@@ -98,7 +98,6 @@ class ProScreen extends HookConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Process screen'),
-        //automaticallyImplyLeading: false,
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -223,43 +222,41 @@ class PreviewScreen extends HookConsumerWidget {
       ),
       body: Column(
         children: [
-          Flexible(
-            flex: 8,
-            child: GridView.builder(
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: C,
-                ),
-                itemCount: R * C,
-                itemBuilder: (BuildContext context, int index) {
-                  if (i == C - 1) {
-                    i = -1;
-                    j++;
-                  }
-                  i++;
+          GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: C,
+              ),
+              itemCount: R * C,
+              itemBuilder: (BuildContext context, int index) {
+                if (i == C - 1) {
+                  i = -1;
+                  j++;
+                }
+                i++;
 
-                  Color color = Colors.white;
-                  if (taskMatrix[j][i] == 1) {
-                    color = Colors.black;
+                Color color = Colors.white;
+                if (taskMatrix[j][i] == 1) {
+                  color = Colors.black;
+                }
+                result.path.forEach((cell) {
+                  if (cell.i == j && cell.j == i) {
+                    color = const Color(0xFF4CAF50);
                   }
-                  result.path.forEach((cell) {
-                    if (cell.i == j && cell.j == i) {
-                      color = const Color(0xFF4CAF50);
-                    }
-                    if (result.path.first.i == j && result.path.first.j == i) {
-                      color = const Color(0xFF64FFDA);
-                    }
-                    if (result.path.last.i == j && result.path.last.j == i) {
-                      color = const Color(0xFF009688);
-                    }
-                  });
-                  return Card(
-                    color: color,
-                    child: Center(child: Text('($i,$j)')),
-                  );
-                }),
-          ),
-          Flexible(flex: 7, child: Text(result.pathStr)),
+                  if (result.path.first.i == j && result.path.first.j == i) {
+                    color = const Color(0xFF64FFDA);
+                  }
+                  if (result.path.last.i == j && result.path.last.j == i) {
+                    color = const Color(0xFF009688);
+                  }
+                });
+                return Card(
+                  color: color,
+                  child: Center(child: Text('($i,$j)')),
+                );
+              }),
+          Text(result.pathStr),
         ],
       ),
     );
